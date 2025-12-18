@@ -2,51 +2,35 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
 
 jobs:
-  build-and-release:
+  release:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      
+      - uses: pnpm/action-setup@v2
         with:
           version: 8
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build extension
-        run: pnpm run build
-
-      - name: Get version from tag
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          name: Release ${{ steps.get_version.outputs.VERSION }}
-          body: |
-            ## 环境切换插件 ${{ steps.get_version.outputs.VERSION }}
-            
-            ### 安装方式
-            1. 下载 `env-change-extension.zip`
-            2. 解压到本地目录
-            3. 打开 Chrome，访问 `chrome://extensions/`
-            4. 启用「开发者模式」
-            5. 点击「加载已解压的扩展程序」，选择解压后的目录
-          files: |
-            release/env-change-extension.zip
+      
+      - run: pnpm install
+      - run: pnpm run build
+      
+      - name: Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
