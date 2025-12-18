@@ -2,26 +2,21 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 permissions:
   contents: write
-  issues: write
-  pull-requests: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
       
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
       
       - uses: pnpm/action-setup@v2
         with:
@@ -30,7 +25,10 @@ jobs:
       - run: pnpm install
       - run: pnpm run build
       
-      - name: Semantic Release
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/*.zip
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
