@@ -1,0 +1,449 @@
+.env-panel {
+  position: fixed;
+  z-index: 2147483647;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  user-select: none;
+  color: #1f2937;
+}
+
+/* 切换按钮 */
+.env-toggle-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+}
+
+.env-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.env-toggle-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+/* 主面板 */
+.env-main-panel {
+  position: relative;
+  width: 260px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 面板头部 */
+.env-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: move;
+}
+
+.env-panel-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.env-panel-header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.env-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: #f3f4f6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.env-icon-btn:hover {
+  background: #e5e7eb;
+}
+
+.env-icon-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: #6b7280;
+}
+
+/* 环境列表 */
+.env-list {
+  padding: 6px;
+}
+
+.env-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  margin: 3px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #f9fafb;
+  border: 1px solid transparent;
+}
+
+.env-item:hover {
+  background: #f3f4f6;
+}
+
+.env-item.active {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border-color: #667eea;
+}
+
+.env-item-name {
+  font-weight: 500;
+  font-size: 13px;
+  color: #374151;
+}
+
+.env-item-url {
+  font-size: 11px;
+  color: #9ca3af;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.env-item-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.env-item:hover .env-item-actions {
+  opacity: 1;
+}
+
+/* 添加按钮 */
+.env-add-btn {
+  width: calc(100% - 12px);
+  padding: 10px;
+  margin: 6px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.env-add-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+  background: #667eea08;
+}
+
+/* 底部操作 */
+.env-panel-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 8px;
+}
+
+.env-footer-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-size: 13px;
+  color: #374151;
+  transition: all 0.2s;
+}
+
+.env-footer-btn:hover {
+  background: #f3f4f6;
+}
+
+/* 编辑表单 */
+.env-edit-form {
+  padding: 16px;
+}
+
+.env-form-group {
+  margin-bottom: 16px;
+}
+
+.env-form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.env-form-label.required::after {
+  content: " *";
+  color: #ef4444;
+}
+
+.env-form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.env-form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 字段编辑行 */
+.env-field-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  margin-bottom: 12px;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.env-field-row .env-form-group {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 140px;
+}
+
+.env-select-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.env-select-btn:hover {
+  border-color: #667eea;
+  background: #667eea08;
+}
+
+.env-select-btn.active {
+  background: #667eea;
+  border-color: #667eea;
+}
+
+.env-select-btn.active svg {
+  fill: white;
+}
+
+.env-select-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: #6b7280;
+}
+
+.env-delete-field-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.env-delete-field-btn:hover {
+  background: #fecaca;
+}
+
+.env-delete-field-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: #ef4444;
+}
+
+/* 添加字段按钮 */
+.env-add-field-btn {
+  width: 100%;
+  padding: 10px;
+  border: 1px dashed #d1d5db;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 13px;
+  margin-bottom: 16px;
+  transition: all 0.2s;
+}
+
+.env-add-field-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+/* 表单按钮组 */
+.env-form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.env-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.env-btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+}
+
+.env-btn-primary:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.env-btn-secondary {
+  background: white;
+  border: 1px solid #d1d5db;
+  color: #374151;
+}
+
+.env-btn-secondary:hover {
+  background: #f3f4f6;
+}
+
+.env-btn-danger {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #ef4444;
+}
+
+.env-btn-danger:hover {
+  background: #fecaca;
+}
+
+/* 选择模式提示 */
+.env-select-mode-hint {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 2147483647;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* 隐藏文件输入 */
+.env-hidden-input {
+  display: none;
+}
+
+/* 空状态 */
+.env-empty-state {
+  text-align: center;
+  padding: 32px 16px;
+  color: #9ca3af;
+}
+
+.env-empty-state svg {
+  width: 48px;
+  height: 48px;
+  fill: #d1d5db;
+  margin-bottom: 12px;
+}
+
+/* 滚动条样式 */
+.env-main-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.env-main-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.env-main-panel::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.env-main-panel::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
